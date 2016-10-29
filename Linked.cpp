@@ -7,6 +7,9 @@ struct node
 	node* next;						// Every node contains a pointer of its 'datatype'.
 };									// So every node can be linked with another node by pointing at the succeeding node, hence forming linked list.
 void add(node*&, int);
+void Display(node*);
+void Delete(node*);
+
 int main()
 {
 	node* head = NULL;				// This means an empty list. This pointer does not point towards any node
@@ -14,6 +17,10 @@ int main()
 	{
 		add(head, i);				// The function adds nodes to the list
 	}
+	
+	Display(node*);					// This function displays the list
+	Delete(node*);					// This function deletes the list. Very important for preventing memory leak.
+
 	return 0;
 }
 
@@ -36,4 +43,37 @@ void add(node*& h, int data1)
 			h = h->next;			//This loop is used to reach there
 		h->next = curr;				//Here, the new node is linked with the previously last node in the list
 		h = h_reset;				//Finally, head is reassigned its initial value. 
+	}
 }
+void Display(node* h)
+{
+	short n = 0;
+	cout << "\n List:" << endl;
+	while (true)
+	{
+
+
+		cout << ++n << "        " << h->data << endl;
+		h = h->next;
+		if (h == NULL)
+		{
+			cout << "----------" << endl;
+			break;
+		}
+	}
+}
+
+void Delete(node*h)
+	{
+		node *curr = h, *next = h->next;
+		while (curr != NULL)
+		{
+			delete curr;
+			curr = next;
+
+			if (next != NULL)
+			{
+				next = curr->next;
+			}
+		}
+	}
